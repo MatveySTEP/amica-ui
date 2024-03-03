@@ -1,14 +1,14 @@
 <template>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Home</a>
+    <router-link to="/" class="navbar-brand">Home</router-link>
     <div>
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <a class="nav-link" href="#">Войти</a>
+          <router-link to="/login" class="nav-link">Войти</router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Зарегистрироваться</a>
+          <router-link to="/register" class="nav-link">Зарегистрироваться</router-link>
         </li>
       </ul>
     </div>
@@ -18,6 +18,7 @@
 
 <script>
 export default {
-    name: "Nav"
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'Nav'
 }
 </script>

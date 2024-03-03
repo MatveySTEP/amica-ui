@@ -1,9 +1,11 @@
-<script setup lang="ts">
-
+<script>
+export default {
+  name: 'Home_sdf'
+}
 </script>
 
 <template>
-  $END$
+  Home
 </template>
 
 <style scoped>
