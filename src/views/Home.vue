@@ -1,4 +1,6 @@
 <script>
+import Cookies from 'js-cookie';
+
 export default {
   name: 'HomePage',
   mounted () {
@@ -10,7 +12,7 @@ export default {
     checkCookieExists () {
       // Check if the cookie exists
       // Return true if the cookie exists, false otherwise
-      return document.cookie.includes('jwt')
+      return localStorage.getItem('token') !== undefined
     }
   }
 }

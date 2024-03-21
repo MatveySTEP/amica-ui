@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios'
+import axios from "axios"
 
 export default {
   name: 'Login_one',
@@ -25,11 +25,13 @@ export default {
   },
   methods: {
     async submit (this: { username: string, password: string }) {
-      axios.post('http://127.0.0.1:8100/v1/api/login', {
+      await axios.post('http://127.0.0.1:8100/v1/api/login', {
         name: this.username,
         password: this.password
-      }).then(response => {
+      }, { withCredentials: true }).then(response => {
         alert('Вы успешно вошли')
+        alert(response.data.token)
+        localStorage.setItem("token", response.data.token)
       }).catch(error => {
         alert(error)
       })
