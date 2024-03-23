@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="submit">
+  <form @submit.prevent="submit" class="form-signin w-100 m-auto">
     <div class="form-floating">
       <input v-model="username" class="form-control" placeholder="Name" required>
       <label for="floatingInput">Your name</label>
@@ -13,7 +13,8 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios'
+import axios from "axios"
+import {Router} from "vue-router";
 
 export default {
   name: 'Register_one',
@@ -23,13 +24,19 @@ export default {
       password: ''
     }
   },
+  mounted(this: { $router: Router }) {
+    const authenticated = localStorage.getItem('token') != null
+    if (authenticated) {
+      this.$router.push('/home')
+    }
+  },
   methods: {
-    async submit (this: { username: string, password: string }) {
-      axios.post('http://127.0.0.1:8100/v1/api/register', {
+    async submit (this: { username: string, password: string, $router: Router }) {
+      await axios.post('http://127.0.0.1:8100/v1/api/register', {
         name: this.username,
         password: this.password
       }).then(response => {
-        alert('Вы успешно зарегистрировались')
+        this.$router.push('/login')
       }).catch(error => {
         alert(error)
       })

@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="submit">
+  <form @submit.prevent="submit" class="form-signin">
     <div class="form-floating">
       <input v-model="username" class="form-control" id="floatingInput" placeholder="Name">
       <label for="floatingInput">Your name</label>
@@ -14,6 +14,7 @@
 
 <script lang="ts">
 import axios from "axios"
+import {Router} from "vue-router";
 
 export default {
   name: 'Login_one',
@@ -23,15 +24,28 @@ export default {
       password: ''
     }
   },
+  mounted(this: { $router: Router }) {
+    const authenticated = localStorage.getItem('token') != null
+    if (authenticated) {
+      this.$router.push('/home')
+    }
+  },
   methods: {
-    async submit (this: { username: string, password: string }) {
+    async submit (this: { username: string, password: string, $router: Router }) {
       await axios.post('http://127.0.0.1:8100/v1/api/login', {
         name: this.username,
         password: this.password
-      }, { withCredentials: true }).then(response => {
-        alert('Вы успешно вошли')
-        alert(response.data.token)
+      }).then(response => {
         localStorage.setItem("token", response.data.token)
+        localStorage.setItem("user", JSON.stringify(response.data.user))
+        console.log(localStorage.getItem("user"))
+        window.dispatchEvent(new CustomEvent('auth-token-changed', {
+          detail: {
+            token: localStorage.getItem('token')
+          }
+        }));
+
+        this.$router.push('/')
       }).catch(error => {
         alert(error)
       })

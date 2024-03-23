@@ -1,8 +1,8 @@
 <template>
 <Nav/>
-  <main class="form-signin w-100 m-auto">
-  <router-view/>
-</main>
+  <div class="container">
+    <router-view/>
+  </div>
 </template>
 
 <script>
