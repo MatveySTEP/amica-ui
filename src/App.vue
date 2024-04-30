@@ -20,6 +20,7 @@ export default {
 html,
 body {
   height: 100%;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 .form-signin {

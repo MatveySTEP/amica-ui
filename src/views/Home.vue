@@ -5,11 +5,11 @@
   <br>
   <div>
     <div class="row">
-      <div class="card col-sm mx-2" v-for="course in courses">
+      <div class="card" style="width: 18rem" v-for="course in courses">
         <div class="card-body">
-          <div class="card-title"><h5>{{ course.Name }}</h5></div>
-          <div class="card-text">{{ course.Desc }}</div>
-          <a href="#" class="btn btn-primary mt-3">Перейти</a>
+          <div class="card-title"><h3>{{ toUpperCase(course.Name) }}</h3></div>
+          <div class="card-text">{{ strLimit(course.Desc, 100) }}</div>
+          <router-link :to="'/courses/' + course.ID" class="btn btn-secondary my-2">Перейти</router-link>
         </div>
       </div>
     </div>
@@ -18,6 +18,7 @@
 
 <script>
 import axios from "axios";
+import {toUpperCase} from "uri-js/dist/esnext/util";
 
 export default {
   name: 'HomePage',
@@ -43,6 +44,14 @@ export default {
     if (!authenticated) {
       this.$router.push('/login')
     }
+  },
+  methods: {
+    toUpperCase,
+    strLimit(value, limit) {
+      if (!value) return '';
+      if (value.length <= limit) return value;
+      return value.substring(0, limit) + '...';
+    },
   }
 }
 </script>
